@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}{{category}} - Shop {% endblock %}
+
+{% block css %}
+.breadcrumb{
+  margin-top :3rem;
+}
+.breadcrumb-item a {
+    text-decoration: none;
+    color:#929292;
+    font-size: 16px;
+    font-family: Quicksand;
+}
+
+.breadcrumb-item a:hover{
+  color:#616161;
+}
+.col-md-3{
+  margin-left:5rem;
+}
+.card {
+  border:none;
+}
+
+.card-body{
+  padding-left:0px;
+}
+
+.card-body .card-title{
+  height:20px;
+  font-size:16px;
+  font-family: EBGaramond-medium;
+  overflow:hidden;
+}
+.card-body .card-text{
+font-size: 13px;
+font-family: Quicksand;
+}
+
+.product-link{
+ text-decoration:none;
+ color: #4c4c4c;
+}
+
+.product-link:hover{
+ color: #4c4c4c;
+}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/shop/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/shop/">Shop</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{category}}</li>
+  </ol>
+</nav>
+</div>
+<hr>
+<div class="container my-5">
+        <div class="row d-flex justify-content-start mx-5 my-5">
+            {% for i in products %}
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="card">
+                    <a  class="product-link" href="/shop/product/{{category}}/{{i.id}}">
+                    <img src="/media/{{i.main_image}}" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body">
+                        <a class="product-link" href="/shop/product/{{category}}/{{i.id}}">
+                        <h5 class="card-title"><strong>{{i.product_name}}</strong></h5>
+                        </a>
+                        <p class="card-text">{{currency}} {{i.price | mul:rate | floatformat:2}}</p>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+        </div><div class="row d-flex justify-content-between mx-5 my-5">
+            {% endif %}
+            {% endfor %}
+        </div>
+</div>
+{% endblock %}

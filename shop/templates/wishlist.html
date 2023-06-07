@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}Wishlist - Shop {% endblock %}
+
+{% block css %}
+.box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+h5{
+	color:hsl(0, 0%, 30%);
+}
+
+.row-image{
+	width: 100px;
+    margin-left:5rem;
+}
+
+.col-lg-12{
+	margin-top: 10px;
+}
+
+.Bag{
+width:100%;
+text-align:center;
+border :1px solid #8b3c2f;
+background-color:white;
+color:gray;
+font-family:Quicksand;
+font-size:16px;
+border-radius:0px;
+margin-top:2rem;
+margin-left:0px;
+}
+
+.Bag:hover{
+border :1px solid #8b3c2f;
+background-color:#8b3c2f;
+color:white;
+}
+
+
+.cart-row{
+	display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+
+.quantity{
+	display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+    margin-top:0px;
+
+
+}
+
+.chg-quantity{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+
+.chg-quantity:hover{
+	opacity: .6;
+}
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+<div class="row my-5">
+    <div class="col-lg-12">
+        <div class="box-element">
+
+            <a class="btn btn-outline-dark" href="/shop/">&#x2190; Continue Shopping</a>
+
+            <br>
+            <br>
+            <table class="table">
+                <tr>
+                    <th><h5>Items: <strong>{{order.get_wishlist_items}}</strong></h5></th>
+                    <th><h5>Total:<strong> {{ order.get_wishlist_total | mul:rate | floatformat:2 }} </strong></h5></th>
+                </tr>
+            </table>
+
+        </div>
+
+        <br>
+        <div class="box-element">
+            <div class="cart-row">
+                <div style="flex:2"></div>
+                <div style="flex:2"><strong>Item</strong></div>
+                <div style="flex:1"><strong>Price</strong></div>
+                <div style="flex:1"><strong>Quantity</strong></div>
+                <div style="flex:1"><strong>Total</strong></div>
+                <div style="flex:1"></div>
+            </div>
+            {% for item in items %}
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="/media/{{item.product.main_image}}"></div>
+                <div style="flex:2"><p>{{item.product.product_name}}</p><p>{{item.color}}  {{item.size}}</p></div>
+                <div style="flex:1"><p>{{currency}} {{item.product.price | mul:rate | floatformat:2 }}</p></div>
+                <div style="flex:1">
+                    <p class="quantity">{{item.quantity}}</p>
+                    <div class="quantity">
+                        <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-wishlist" onclick="setSizeColor('{{item.size}}','{{item.color}}','{{item.quantity}}')" src="{% static '3+arrow-up.png' %}">
+
+                        <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-wishlist" onclick="setSizeColor('{{item.size}}','{{item.color}}','{{item.quantity}}')" src="{% static '2+arrow-down.png' %}">
+                    </div>
+                </div>
+                <div style="flex:1"><p>{{currency}} {{item.get_total | mul:rate | floatformat:2 }}</p></div>
+                <div style="flex:1"><button data-product="{{item.product.id}}" data-action="add" class="btn btn-primary Bag update-cart" onclick="setSizeColor('{{item.size}}','{{item.color}}','{{item.quantity}}')">ADD TO BAG</button>
+           </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block js %}
+var Size
+var Color
+var Qty
+
+function setSizeColor(size,color,qty){
+console.log(size);
+Size = size;
+Color = color;
+Qty = qty;
+}
+
+var wishlistBtn = document.getElementsByClassName('update-wishlist');
+for ( var i=0;i < wishlistBtn.length;i++){
+wishlistBtn[i].addEventListener('click',function(){
+   var productId = this.dataset.product
+   var action = this.dataset.action
+
+   {% if user.is_authenticated %}
+    updateUserWishlist(productId,action)
+   {% else %}
+    window.location = "/shop/login";
+   {% endif %}
+})
+}
+function updateUserWishlist(productId,action){
+  var url = '/shop/update_wishlist/';
+
+  fetch(url,{
+     method:'POST',
+     headers:{
+       'Content-Type':'application/json',
+       'X-CSRFToken':csrftoken,
+     },
+     body:JSON.stringify({'productId':productId,'action':action,'size':Size,'color':Color,'qty':1})
+  })
+
+  .then((response) =>{
+    return response.json()
+})
+
+ .then((data) =>{
+    console.log('data : ', data)
+    location.reload()
+})
+}
+
+
+var updateBtn = document.getElementsByClassName('update-cart');
+for ( var i=0;i < updateBtn.length;i++){
+updateBtn[i].addEventListener('click',function(){
+   var productId = this.dataset.product
+   var action = this.dataset.action
+
+   {% if user.is_authenticated %}
+    updateUserOrder(productId,action)
+   {% else %}
+    window.location = "/shop/login";
+   {% endif %}
+})
+}
+function updateUserOrder(productId,action){
+  var url = '/shop/update_cart/';
+
+  fetch(url,{
+     method:'POST',
+     headers:{
+       'Content-Type':'application/json',
+       'X-CSRFToken':csrftoken,
+     },
+     body:JSON.stringify({'productId':productId,'action':action,'size':Size,'color':Color,'qty':Qty})
+  })
+
+  .then((response) =>{
+    return response.json()
+})
+
+ .then((data) =>{
+    console.log('data : ', data)
+    location.reload()
+})
+}
+{% endblock %}

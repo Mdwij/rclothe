@@ -1,0 +1,143 @@
+#my-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s;
+}
+
+#my-navbar:hover {
+    background-color: #fff;
+
+}
+
+.nav-item {
+    margin-left: 40px;
+    font-size: 16px;
+    font-family: Quicksand;
+}
+
+.options{
+    background-color:#fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 48px;
+    display: none;
+}
+
+.nav-item:hover .options{
+    display: block;
+}
+
+.options .container ul{
+    list-style-type: none;
+    padding: 1rem;
+}
+
+.options .container ul li{
+    padding: 0.5rem 1rem;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.quick-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.round-image-sm {
+    width: 80px;
+    height: 80px;
+    background-color: #bebebf;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.quick-link a {
+    text-decoration: none;
+}
+
+.about-brand {
+    text-align: center;
+}
+
+.about-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.best-seller .row > div {
+    margin-bottom: 0.5rem;
+}
+
+.best-seller .row img {
+    height: 300px;
+    object-fit: cover;
+}
+
+footer {
+    background-color: #fff;
+}
+
+.branding-line {
+    height: 1px;
+    background-color: #bebebf;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.branding-line span {
+    padding: 0.5rem 2rem;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+}
+
+ul.brand-list {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+ul.brand-list a {
+    text-decoration: none;
+    color: initial;
+}
+
+.newsletter {
+    width: 100%;
+    max-width: 560px;
+    padding: 1rem 0;
+}
+
+.newsletter input[type="email"] {
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.newsletter input[type="submit"] {
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+@media screen and (max-width: 768px) {
+    footer .brand, .contact-us {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer .brand-list {
+        text-align: center;
+    }
+}

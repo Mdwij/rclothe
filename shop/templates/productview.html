@@ -1,0 +1,468 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}{{product.product_name}} - Shop{% endblock %}
+
+{% block css %}
+.size .display-size,.display-color{
+display : block;
+border : 1px solid #aaaaaa;
+width:5rem;
+padding:5px;
+text-align: center;
+}
+
+.size .display-size:hover{
+border : 2px solid #8b3c2f;
+}
+.size .display-color:hover{
+border : 2px solid #8b3c2f;
+}
+
+.Bag{
+width:40%;
+text-align:center;
+border :1px solid #8b3c2f;
+background-color:white;
+color:gray;
+font-family:Quicksand;
+font-size:16px;
+border-radius:0px;
+margin-top:2rem;
+margin-left:5%;
+}
+
+.Bag:hover{
+border :1px solid #8b3c2f;
+background-color:#8b3c2f;
+color:white;
+}
+
+.plus-minus{
+width:2.5rem;
+padding-top:0.25rem;
+padding-bottom:0.47rem;
+text-align:center;
+border :1px solid gray;
+background-color:white;
+color:gray;
+font-family:Quicksand;
+font-size:16px;
+border-radius:0px;
+}
+
+.qty{
+border :1px solid #8b3c2f;
+text-align:center;
+background-color:white;
+color:gray;
+font-family:Quicksand;
+font-size:16px;
+border-radius:0px;
+padding:6px 18px;
+padding-bottom:10px;
+}
+
+.plus-minus:hover{
+border :1px solid gray;
+background-color:gray;
+color:white;
+}
+
+.plus-minus:active{
+border :1px solid gray;
+background-color:gray;
+color:white;
+}
+.require-field{
+display:none;
+}
+
+.overlay {
+height: 100%;
+width: 0;
+position: fixed;
+z-index: 1;
+top: 0;
+left: 0;
+background-color: rgb(0,0,0);
+background-color: rgba(0,0,0, 0.2);
+overflow-x: hidden;
+transition: 0.5s;
+}
+
+.overlay-content {
+position: relative;
+top: 15%;
+left:30%;
+width: 40%;
+height:70%;
+background-color: rgb(255,255,255);
+text-align: center;
+margin-top: 30px;
+}
+
+.overlay a {
+padding: 8px;
+text-decoration: none;
+font-size: 36px;
+color: #818181;
+display: block;
+transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+color: #f1f1f1;
+}
+
+.overlay .closebtn {
+position: absolute;
+top: 0px;
+right: 12px;
+font-size: 40px;
+padding:0px;
+height:40px;
+}
+
+table,th,tr,td{
+border: 1px solid gray;
+font-size : 13px;
+font-family:Quicksand;
+}
+
+tr{
+ height:3rem;
+}
+td{
+ width:3.3rem;
+}
+@media screen and (max-height: 450px) {
+.overlay a {font-size: 20px}
+.overlay .closebtn {
+font-size: 20px;
+top: 0px;
+right: 12px;
+}
+}
+
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div id="carouselExampleCaptions" class="carousel carousel-dark slide carousel-fade mx-5"
+                 data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <img src="/media/{{product.main_image}}" class="d-block" alt="Image 1">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="/media/{{product.image2}}" class="d-block" alt="Image 2">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="`3000">
+                        <img src="/media/{{product.image3}}" class="d-block" alt="Image 3">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-8"><h5 style="font-family: EBGaramond;font-size:21px;" id="namepr{{product.id}}">
+                    {{product.product_name}}</h5></div>
+                <div class="col-md-4"><p class="float-end" style="font-family:Quicksand;font-size:16px;"><span
+                        id="pricepr{{product.id}}">{{currency}} {{product.price | mul:rate | floatformat:2}}</span></p>
+                </div>
+            </div>
+            <hr>
+            <p class="mt-4" style="font-family:Quicksand;font-size:16px;">Select size</p>
+            <div class="size d-flex justify-content-between">
+                {% for i in product.size %}
+                <div class="display-size" role="button">{{i}}</div>
+                {% endfor %}
+            </div>
+            <div class="mt-2">
+                <span style="font-family:Quicksand,serif;font-size:16px;cursor:pointer" onclick="openNav()">Size Guide For Dress</span>
+                <div id="myNav" class="overlay">
+                    <div class="overlay-content">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <br><br><br>
+                        <div style="margin-left:1rem;margin-right:1rem;">
+                        <table style="width: 100%;height: 100%">
+                            <tr style="font-size:13px;font-family: Quicksand;height: 2rem;background-color: #666666;color: #FFFFFF">
+                                <th colspan="7">DRESS GARMENT MEASUREMENT</th>
+                            </tr>
+                            <tr>
+                                <td>Size</td>
+                                <td>Bust</td>
+                                <td>Waist</td>
+                                <td>Hip</td>
+                                <td>Length</td>
+                                <td>Sleeve</td>
+                                <td>Shoulder</td>
+                            </tr>
+                            <tr>
+                                <td>XS</td>
+                                <td>36</td>
+                                <td>34</td>
+                                <td>40</td>
+                                <td>48</td>
+                                <td>18</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <td>S</td>
+                                <td>38</td>
+                                <td>36</td>
+                                <td>42</td>
+                                <td>48</td>
+                                <td>18</td>
+                                <td>14.5</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>40</td>
+                                <td>38</td>
+                                <td>44</td>
+                                <td>48</td>
+                                <td>18</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>L</td>
+                                <td>42</td>
+                                <td>40</td>
+                                <td>46</td>
+                                <td>48</td>
+                                <td>18</td>
+                                <td>15.5</td>
+                            </tr>
+                            <tr>
+                                <td>XL</td>
+                                <td>44</td>
+                                <td>42</td>
+                                <td>48</td>
+                                <td>48</td>
+                                <td>18</td>
+                                <td>16</td>
+                            </tr>
+                            <tr>
+                                <td>XXL</td>
+                                <td>46</td>
+                                <td>44</td>
+                                <td>50</td>
+                                <td>48</td>
+                                <td>18</td>
+                                <td>16.5</td>
+                            </tr>
+                        </table>
+                            <p style="margin-top: 15px;text-align: left;font-size: 12px"> * Please note that these are garment measurements, not body measurements.</p>
+                            <p style="margin-top: 10px;text-align: left;font-size:12px"> * Please note that the provided measurements are in inches.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" require-field
+                        "><p style="color: red">This is a required field!</p></div>
+                    <p class="mt-4" style="font-family:Quicksand;font-size:16px;">Choose Color</p>
+                    <div class="size d-flex justify-content-between">
+                        {% for i in product.color %}
+                        <div class="display-color" role="button">{{i}}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="require-field"><p style="color: red">This is a required field!</p></div>
+                    <p class="mt-4" style="font-family:Quicksand;font-size:16px;">Qty</p>
+                    <div style="margin-top: 1rem;">
+                        <button data-action="minus" class='plus-minus'> -</button>
+                        <span class="qty"></span>
+                        <button data-action="plus" class=' plus-minus'> +</button>
+                    </div>
+                    <button data-product="{{product.id}}" data-action="add" id="pr{{product.id}}"
+                            class="btn btn-primary Bag update-cart">ADD TO BAG
+                    </button>
+                    <button data-product="{{product.id}}" data-action="add" class="btn btn-primary Bag update-wishlist">
+                        ADD TO
+                        WISHLIST
+                    </button>
+                    <hr>
+                    <p class="mt-4"
+                       style="font-family:Quicksand;font-size:16px;display: block;background-color:#d9d9d9;padding:0.6rem ">
+                        ABOUT PRODUCT</p>
+                    <p style="font-family:Quicksand;font-size:14px;">{{product.desc}}</p>
+                    <hr>
+                    <p class="mt-4"
+                       style="font-family:Quicksand;font-size:16px;display: block;background-color:#d9d9d9;padding:0.6rem ">
+                        MATERIAL & CARE</p>
+                    <p style="font-family:Quicksand;font-size:14px;margin-left: 5px"><b>Material</b> :
+                        {{product.material}}</p>
+                    <p style="font-family:Quicksand;font-size:14px;margin-left: 5px"><b>Care</b> : {{product.care}}</p>
+                    <hr>
+                    <p class="mt-4"
+                       style="font-family:Quicksand;font-size:16px;display: block;background-color:#d9d9d9;padding:0.6rem ">
+                        SHIPPING & RETURN</p>
+                    <p style="font-family:Quicksand;font-size:14px;">Dispatched in 7-9 business days. Cancellation
+                        requests will
+                        be accepted strictly within 12 hours of placing the order only. </p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block js %}
+
+    function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+    }
+
+    function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+    }
+
+    var Size
+    var Color
+    $('.display-size').click(function(){
+    Size = this.innerHTML;
+    $('.display-size').css("border","1px solid #aaaaaa");
+    $(this).css("border","1px solid #8b3c2f");
+    });
+
+
+    $('.display-color').click(function(){
+    Color = this.innerHTML;
+    $('.display-color').css("border","1px solid #aaaaaa");
+    $(this).css("border","1px solid #8b3c2f");
+    });
+
+    var Quantity
+    function setQuantity(qty){
+    Quantity = qty;
+    console.log(Quantity);
+    document.getElementsByClassName('qty')[0].innerHTML = Quantity;
+    }
+
+    setQuantity(1);
+
+    var plus_minus = document.getElementsByClassName('plus-minus');
+    for (var i=0;i < plus_minus.length;i++){
+    plus_minus[i].addEventListener('click',function(){
+    var act = this.dataset.action
+    if ( act == 'plus'){
+    Quantity += 1;
+    }
+    else {
+    if ( Quantity <=1){
+    Quantity = 1;
+    }
+    else{
+    Quantity -= 1 ;
+    }
+    }
+    setQuantity(Quantity);
+    })
+    }
+
+
+    var wishlistBtn = document.getElementsByClassName('update-wishlist');
+    wishlistBtn[0].addEventListener('click',function(){
+    var productId = this.dataset.product
+    var action = this.dataset.action
+
+    {% if user.is_authenticated %}
+    if ( Size != undefined && Color != undefined){
+    updateUserWishlist(productId,action)
+    }
+    else{
+    document.getElementsByClassName('require-field')[0].style.display='block';
+    document.getElementsByClassName('require-field')[1].style.display='block';
+    }
+    {% else %}
+    window.location = "/shop/login";
+    {% endif %}
+    });
+
+    function updateUserWishlist(productId,action){
+    var url = '/shop/update_wishlist/';
+
+    fetch(url,{
+    method:'POST',
+    headers:{
+    'Content-Type':'application/json',
+    'X-CSRFToken':csrftoken,
+    },
+    body:JSON.stringify({'productId':productId,'action':action,'size':Size,'color':Color,'qty':Quantity})
+    })
+
+    .then((response) =>{
+    return response.json()
+    })
+
+    .then((data) =>{
+    console.log('data : ', data)
+    location.reload()
+    })
+    }
+
+    var updateBtn = document.getElementsByClassName('update-cart');
+    updateBtn[0].addEventListener('click',function(){
+    var productId = this.dataset.product
+    var action = this.dataset.action
+
+    {% if user.is_authenticated %}
+    if ( Size != undefined && Color != undefined){
+    updateUserOrder(productId,action)
+    }
+    else{
+    document.getElementsByClassName('require-field')[0].style.display='block';
+    document.getElementsByClassName('require-field')[1].style.display='block';
+    }
+    {% else %}
+    window.location = "/shop/login";
+    {% endif %}
+    });
+
+    function updateUserOrder(productId,action){
+    var url = '/shop/update_cart/';
+
+    fetch(url,{
+    method:'POST',
+    headers:{
+    'Content-Type':'application/json',
+    'X-CSRFToken':csrftoken,
+    },
+    body:JSON.stringify({'productId':productId,'action':action,'size':Size,'color':Color,'qty':Quantity})
+    })
+
+    .then((response) =>{
+    return response.json()
+    })
+
+    .then((data) =>{
+    console.log('data : ', data)
+    location.reload()
+    })
+    }
+
+    {% endblock %}

@@ -1,0 +1,335 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load mathfilters %}
+
+{% block title %}R-clothe{% endblock %}
+
+{% block css %}
+.quick-link a {
+text-decoration: none;
+color:#929292;
+font-size: 16px;
+font-family: Quicksand;
+}
+
+.quick-link a:hover{
+color:#616161;
+}
+
+.best-seller .col-md-3{
+display:inline-block;
+margin-left:-4px
+}
+
+.best-seller .card {
+border:none;
+margin:1rem;
+}
+
+.best-seller .card-body{
+padding-left:0px;
+}
+
+.best-seller .card-body .card-title{
+height:20px;
+font-size:16px;
+font-family: EBGaramond-medium;
+overflow:hidden;
+}
+.best-seller .card-body .card-text{
+font-size: 13px;
+font-family: Quicksand;
+}
+
+.best-seller .product-link{
+text-decoration:none;
+color: #4c4c4c;
+}
+
+.best-seller .product-link:hover{
+color: #4c4c4c;
+}
+.best-seller .carousel-indicators li{
+background-color:blue;
+}
+.best-seller .carousel -indicators active{
+background-color:blue;
+}
+
+.best-seller .carousel-indicators{
+bottom:-40px;
+}
+.best-seller .carousel-control-prev-icon,
+.best-seller .carousel-control-next-icon{
+background-color:black;
+}
+
+.Fest{
+height:800px;
+font-family:Quicksand;
+}
+.Fest .A button{
+top:50%;
+left:35%;
+position: absolute;
+width: 30%;
+height: 5%;
+background-color: rgba(255,255,255,0)
+}
+
+.Fest .A button:hover{
+  background-color: rgba(0,0,0,0.3)
+}
+
+.Fest .B button{
+top:50%;
+left:35%;
+width: 40%;
+height:40px;
+background-color: rgba(255,255,255,0)
+}
+
+.Fest .B button:hover{
+  border: 1px solid #c2b09b;
+  background-color:#c2b09b;
+  color:black;
+}
+
+.headtitle-coll{
+   margin-top:40%;
+   margin-left:10%;
+   margin-right:10%;
+   text-align:center;
+}
+
+.headtitle{
+   text-align:center;
+   margin-bottom:40px;
+   font-family:EBGaramond;
+   color:#9E5E2E;
+}
+
+.visitourstore-location{
+   background-color:#78967A;
+   font-size:16px;
+   font-family:Times New Roman;
+   padding:40px 60px;
+   margin:0px 85px;
+   color:#000000;
+}
+
+.visitourstore-left{
+    color:#FFFFFF;
+    font-size:20px;
+    font-family:Quicksand;
+    display:inline-block;
+}
+
+.visitourstore-right{
+    font-size:24px;
+    font-family:EBGaramond;
+    display:inline-block;
+    float:right;
+    margin:-5px;
+}
+{% endblock %}
+
+{% block content %}
+<div id="carouselExampleCaptions" class="carousel carousel-dark slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+            <img src="{% static 'images\carousel1.jpg' %}" class="d-block" alt="Image 1">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>First slide label</h5>
+                <p>Some representative placeholder content for the first slide.</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img src="{% static 'images\carousel2.jpg' %}" class="d-block" alt="Image 2">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Second slide label</h5>
+                <p>Some representative placeholder content for the second slide.</p>
+            </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="`3000">
+            <img src="{% static 'images\carousel3.jpg' %}" class="d-block" alt="Image 3">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Third slide label</h5>
+                <p>Some representative placeholder content for the third slide.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<section class="quick-links py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-2 mb-4 quick-link">
+                <div class="round-image-sm"></div>
+                <a href="/shop/product/Kurtas"><h6>Kurtas</h6></a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-2 mb-4 quick-link">
+                <div class="round-image-sm"></div>
+                <a href="/shop/product/Dress"><h6>Dress</h6></a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-2 mb-4 quick-link">
+                <div class="round-image-sm"></div>
+                <a href="/shop/product/Duppata/"><h6>Duppata</h6></a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-2 mb-4 quick-link">
+                <div class="round-image-sm"></div>
+                <a href="/shop/product/Jacket/"><h6>Jacket</h6></a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-2 mb-4 quick-link">
+                <div class="round-image-sm"></div>
+                <a href="/shop/product/Top/"><h6>Top</h6></a>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-2 mb-4 quick-link">
+                <div class="round-image-sm"></div>
+                <a href="/shop/product/Sari/"><h6>Sari</h6></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-brand py-5">
+    <div class="about-container">
+        <h2 class="text-black-50">About RClothing</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam deleniti doloribus eaque error
+            est eveniet, hic in magni Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam
+            deleniti doloribus eaque error est eveniet, hic in magni maior maiores, minus molestias numquam quam quos
+            similique, tempora tenetur voluptate voluptates!</p>
+    </div>
+</section>
+
+<section class="best-seller py-5">
+    {% for products,range,nslides in allprods %}
+    <div class="container">
+        <h3 style="margin-top:30px;margin-left:2.3rem;color: #9F5E28;font-family: Quicksand;"><strong>{{products.0.subcategory}}</strong></h3>
+        <div class="row">
+            <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+                <ul class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo{{forloop.counter}}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    {% for i in range %}
+                    <button type="button" data-bs-target="#demo{{forloop.parentloop.counter}}" data-bs-slide-to="{{i}}" class="active" aria-current="true" aria-label="Slide {{i | add:'1'}}"></button>
+                    {% endfor %}
+                </ul>
+
+                <!-- Slideshow Start Here -->
+                <div class="container carousel-inner no-padding">
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <div class="col-lg-3 col-md-3 col-sm-1">
+                            <div class="card">
+                                <a class="product-link" href="/shop/product/{{products.0.subcategory}}/{{products.0.id}}">
+                                    <img src="/media/{{products.0.main_image}}" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <a class="product-link" href="/shop/product/{{products.0.subcategory}}/{{products.0.id}}">
+                                        <h5 class="card-title"><strong>{{products.0.product_name}}</strong></h5>
+                                    </a>
+                                    <p class="card-text">{{currency}} {{products.0.price | mul:rate | floatformat:2}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% for i in products|slice:"1:" %}
+                        <div class="col-lg-3 col-md-3 col-sm-1">
+                            <div class="card">
+                                <a class="product-link"
+                                   href="/shop/product/{{i.subcategory}}/{{i.id}}">
+                                    <img src="/media/{{i.main_image}}" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <a class="product-link"
+                                       href="/shop/product/{{i.subcategory}}/{{i.id}}">
+                                        <h5 class="card-title"><strong>{{i.product_name}}</strong></h5>
+                                    </a>
+                                    <p class="card-text">{{currency}} {{i.price | mul:rate | floatformat:2}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% if forloop.counter|add:"1"|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                    </div>
+                    <div class="carousel-item">
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <!-- left and right controls for slide-->
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo{{forloop.counter}}"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo{{forloop.counter}}"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% if not forloop.last %}
+    <div class="row Fest">
+        <div class="col span_6 A" style="margin: 0;padding: 0;width:50%;height: 100%;position: relative">
+            <img src="{% static 'Fest.jpg' %}" style="width: 100%;height: auto">
+            <a href="/shop/product/Festival-Collection/"><button class="btn-outline-dark">SHOP THE LOOK</button></a>
+        </div>
+        <div class="col span_6 B" style="height: 100%;width: 50%;background-color: #F8F8F8">
+            <div class="headtitle-coll">
+              <h3 style="margin-bottom:1.5rem">Hand-Woven Festive Collections</h3>
+              <p style="margin-bottom:4rem">The Fara Collection is designed using custom handwoven bold stripes with metallic zari stripes. Comfortable and thoughtfully designed, the Fara collection includes silhouettes that are easy-to-wear as separates and ensembles and includes delicate sleeveless dresses, flowing kaftans, chic shirts, statement pants and versatile kurtas. </p>
+                <a href="/shop/product/Festival-Collection/">
+                    <button class="btn-outline-dark" href="/shop/Festival-Collection/">
+                        <b>EXPLORE FESTIVAL</b>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</section>
+
+<div class="container">
+    <div class="headtitle">
+        <h2>Visit Our Store</h2>
+    </div>
+    <div class="d-flex justify-content-between">
+        <div style="width: 50%;position: relative">
+            <img src="{% static 'store.jpg' %}" style="width:100%;height: auto" alt="shop">
+        </div>
+        <div class="visitourstore-location" style="color: white; width: 50%">
+            <h5>Your Shop Address</h5>
+            <div class="directions-link headtitle">
+                <h3>
+                    <a href="https://goo.gl/maps/mqkXqQ4J19HRLhPE7" style="text-decoration: none;color: white;" target="_blank">
+                        <img style="width: 24px;height: 26px;" src="{% static 'images/pin.svg' %}" alt="pin">
+                        Directions
+                    </a>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

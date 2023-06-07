@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Cart - Shop {% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="col my-4">
+         <h2>Payment status regarding your order Id {{response.ORDERID}}</h2>
+         {% if response.RESPCODE == '01' %}
+           ORDER SUCCESS
+         {% else %}
+           ORDER FAILURE
+         {% endif %}
+    </div>
+</div>
+{% endblock %}
